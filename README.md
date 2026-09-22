@@ -121,5 +121,8 @@ Scale-In Recovery: Terminating stress processes triggered Capstone-CPU-Low Alarm
 
 
 ## Complete Documentation
+---
+
+## Complete Documentation
 The full engineering report in PDF format is available for direct download:
-*  **[Download Complete PDF Report](./AWS_Capstone_Project_Report_Haneen_Mallah.pdf)**
+[Download Complete PDF Report](https://raw.githubusercontent.com/haneenmallah/AWS-Secure-HighlyAvailable-3Tier-App/main/AWS_Capstone_Project_Report_Haneen_Mallah.pdf)
