@@ -118,6 +118,8 @@ Auto Scaling Under Stress: CPU stress script (for i in $(seq 1 $(nproc))...) tri
 
 Scale-In Recovery: Terminating stress processes triggered Capstone-CPU-Low Alarm, safely decommissioning the extra instance back to the minimum capacity of 2
 
-Complete Documentation
-The full engineering report in PDF format is available in this repository:
-[Download Complete PDF Report](https://raw.github.com/haneenmallah/AWS-Secure-HighlyAvailable-3Tier-App/main/AWS%20Capstone%20Project%20Report%20-%20Haneen%20Mallah.pdf)
+
+
+## Complete Documentation
+The full engineering report in PDF format is available for direct download:
+*  **[Download Complete PDF Report](./AWS_Capstone_Project_Report_Haneen_Mallah.pdf)**
