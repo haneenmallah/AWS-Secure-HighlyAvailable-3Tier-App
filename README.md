@@ -43,18 +43,18 @@ This repository documents the complete design, deployment, and verification of a
 
 ## Security Groups Chaining & Defense-in-Depth
 
-Securi[ Internet (0.0.0.0/0) ]
-│
-▼ (Port 80)
-[ Capstone-ALB-SG ]
-│
-▼ (Port 80 - Source: Capstone-ALB-SG)
-[ Capstone-EC2-SG ]
-├──────────────────────────┐
-▼ (Port 3306)              ▼ (Port 443)
-[ Capstone-RDS-SG ]        [ Capstone-Endpoint-SG ]ty Groups are configured as a tightly chained defense perimeter referencing Security Group IDs rather than fixed IP ranges:
-* **Stateless Network ACLs (`Capstone-App-NACL`):** Configured with explicit Inbound Rule 120 and Outbound Rule 130 permitting ephemeral ports (`1024-65535`) to handle session response traffic initiated by backend servers during package updates and endpoint resolution
-* **Port 22 Removal:** SSH is completely disabled across all tiers. Remote administration is managed exclusively via **AWS Systems Manager Session Manager** over HTTPS
+
+Security Groups are configured as a tightly chained defense perimeter where each tier explicitly references the Security Group ID of the preceding tier rather than IP ranges:
+
+| Security Group Name | Traffic Type | Allowed Port | Inbound Source Condition |
+| :--- | :--- | :--- | :--- |
+| **`Capstone-ALB-SG`** | HTTP | Port `80` | Public Internet (`0.0.0.0/0`) |
+| **`Capstone-EC2-SG`** | HTTP | Port `80` | `Capstone-ALB-SG` ID Only |
+| **`Capstone-RDS-SG`** | MySQL/Aurora | Port `3306` | `Capstone-EC2-SG` ID Only |
+| **`Capstone-Endpoint-SG`** | HTTPS | Port `443` | `Capstone-EC2-SG` ID Only |
+
+* **Stateless Network ACLs (`Capstone-App-NACL`):** Configured with explicit Inbound Rule 120 and Outbound Rule 130 permitting ephemeral ports (`1024-65535`) to handle session response traffic.
+* **Port 22 Removal:** SSH is completely disabled across all tiers. Remote administration is managed exclusively via **AWS Systems Manager Session Manager** over HTTPS.
 
 ---
 
@@ -120,4 +120,4 @@ Scale-In Recovery: Terminating stress processes triggered Capstone-CPU-Low Alarm
 
 Complete Documentation
 The full engineering report in PDF format is available in this repository:
-[Download Complete PDF Report](https://raw.githubusercontent.com/haneenmallah/AWS-Secure-HighlyAvailable-3Tier-App/main/AWS%20Capstone%20Project%20Report%20-%20Haneen%20Mallah.pdf)
+[Download Complete PDF Report](https://raw.github.com/haneenmallah/AWS-Secure-HighlyAvailable-3Tier-App/main/AWS%20Capstone%20Project%20Report%20-%20Haneen%20Mallah.pdf)
